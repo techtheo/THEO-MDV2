@@ -5,33 +5,31 @@ on:
     branches:
       - main
   schedule:
-  - cron: '0 */6 * * *' # Runs every 6 hours
+    - cron: '0 */6 * * *' # Runs every 6 hours
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [20.x]
 
     steps:
-    - name: Checkout THEO-MDV2 repository
-      uses: actions/checkout@v3
+      - name: Checkout THEO-MDV2 repository
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Install libraries
-      run: npm install
+      - name: Install libraries
+        run: npm install
 
-    - name: Start Suhail-Md
-      env:
-        OWNER_NAME: ""
-        OWNER_NUMBER: ""
-        SESSION_ID: ""
-      run: |
-        npm start
+      - name: Start Suhail-Md
+        env:
+          OWNER_NAME: ""
+          OWNER_NUMBER: ""
+          SESSION_ID: ""
+        run: |
+          timeout 6h npm start
